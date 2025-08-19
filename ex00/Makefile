@@ -6,7 +6,7 @@
 #    By: weast <weast@student.42berlin.de>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/14 10:31:24 by weast             #+#    #+#              #
-#    Updated: 2025/08/14 11:01:57 by weast            ###   ########.fr        #
+#    Updated: 2025/08/19 11:49:17 by weast            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -30,8 +30,8 @@ clean:
 	rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(OBJ)
+	rm -f $(NAME)
 
-re: flcean all
+re: fclean all
 
 .PHONY: all clean fclean re
