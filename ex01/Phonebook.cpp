@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include "Contact.hpp"
 #include "PhoneBook.hpp"
 
 // constructor
@@ -20,6 +21,77 @@ Phonebook::Phonebook() : _counter(0), _contact_count(0) {}
 Phonebook::~Phonebook() {}
 
 // helpers
+
+static std::string get_input(const std::string &message)
+{
+    std::string input;
+
+    while (true)
+    {
+        std::cout << message;
+        std::getline(std::cin, input);
+        if (!input.empty())
+            return input;
+
+        std::cout << "Field cannot be empty. Try again.\n";
+    }
+}
+
+static bool is_valid(const std::string& s) {
+    for (size_t i = 0; i < s.length(); ++i) {
+        char c = s[i];
+        if (!((c >= '0' && c <= '9') || c == '+' || c == '-' || c == '(' || c == ')')) {
+            return false;
+        }
+    }
+	return true;
+}
+
+static std::string get_numeric_input(const std::string &message)
+{
+    std::string input;
+
+    while (true)
+    {
+        std::cout << message;
+		if (!std::getline(std::cin, input))
+			{
+				std::cout << "\nInput cancelled (EOF).\n";
+				return "";
+			}
+        if (!input.empty())
+		{
+			if (is_valid(input))
+				return input;
+			std::cout << "Phone number must consist of 0-9, + - (  ). Try again.\n";
+		}
+		if (input.empty())
+			std::cout << "Field cannot be empty. Try again.\n";
+    }
+}
+
+Contact Phonebook::capture_contact()
+{
+	Contact contact;
+    contact.set_name(get_input("First name: "));
+    contact.set_surname(get_input("Last name: "));
+    contact.set_nick(get_input("Nickname: "));
+    contact.set_number(get_numeric_input("Phone Number: "));
+    contact.set_secret(get_input("Secret: "));
+
+    std::cout << contact.get_full_name() + " added successfully.\n";
+	return contact;
+}
+
+void Phonebook::print_contact(Contact contact)
+{
+	std::cout
+		<< "FIRST : " << contact.get_name() << std::endl
+	    << "LAST  : " << contact.get_surname()  << std::endl
+	    << "NICK  : " << contact.get_nick()  << std::endl
+		<< "TEL   : " << contact.get_number() << std::endl
+		<< "SECRET: " << contact.get_secret() << std::endl;
+}
 
 // if string is longer than 10, replace remaining chars with ..
 std::string Phonebook::format_field(const std::string &str)
@@ -35,7 +107,7 @@ void Phonebook::add_contact()
     if (_contact_count == 8)
         std::cout << "Phonebook full. Overwriting oldest contact.\n";
 
-    _contacts[_counter].capture_contact();
+    _contacts[_counter] = capture_contact();
 
     _counter = (_counter + 1) % 8;
     if (_contact_count < 8)
@@ -92,5 +164,5 @@ void	Phonebook::search()
 			std::cout << "out of range\n";
 			return ;
 	}
-	Phonebook::_contacts[index].print_contact();
+	Phonebook::print_contact(_contacts[index]);
 }

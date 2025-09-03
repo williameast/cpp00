@@ -48,8 +48,8 @@ class Contact
 	void	set_secret(std::string str);
 
 	// io
-	void	capture_contact();
-	void	print_contact();
+	// void	capture_contact();
+	// void	print_contact();
 };
 
 

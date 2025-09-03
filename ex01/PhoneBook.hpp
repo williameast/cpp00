@@ -22,16 +22,20 @@ class Phonebook
 	int		_counter;
 	int		_contact_count;
 
+	// helpers
+	std::string format_field(const std::string &str);
+	Contact	capture_contact();
+	void	print_contact(Contact contact);
+
 	public:
 	Phonebook();
 	~Phonebook();
+
 	void	add_contact();
 	void	print_contacts();
 	void	search();
 
-	// helpers
 
-	std::string format_field(const std::string &str);
 };
 
 #endif // PHONEBOOK_H
