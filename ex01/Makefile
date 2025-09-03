@@ -11,7 +11,6 @@
 #******************************************************************************#
 
 NAME = phonebook
-#HEADERS = megaphone.hpp
 SRC = main.cpp Contact.cpp Phonebook.cpp
 OBJ = $(SRC:.cpp=.o)
 CPP = c++

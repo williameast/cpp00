@@ -11,7 +11,6 @@
 #******************************************************************************#
 
 NAME = megaphone
-#HEADERS = megaphone.hpp
 SRC = megaphone.cpp
 OBJ = $(SRC:.cpp=.o)
 CPP = c++
